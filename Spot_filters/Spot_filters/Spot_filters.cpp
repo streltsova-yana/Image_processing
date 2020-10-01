@@ -1,17 +1,34 @@
-﻿#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc.hpp>
-#include <iostream>
+﻿#include <iostream>
+#include "Metric.h"
 
 using namespace cv;
 using namespace std;
 
-int main()
+int main(int argc, char** argv)
 {
-	Mat image = Mat::zeros(300, 600, CV_8UC3);
-	circle(image, Point(250, 150), 100, Scalar(0, 255, 128), -100);
-	circle(image, Point(350, 150), 100, Scalar(255, 255, 255), -100);
-	imshow("Display Window", image);
+	if (argc != 3) {
+		cout << "Not enough command line arguments" << endl;
+		return -1;
+	}
+	
+	//Metric
+	Mat A, B, C; //Loading images
+	A = imread(argv[1]);
+	B = imread(argv[2]);
+	if ((!A.data) || (!B.data)) {
+		printf("No image data\n");
+		return -1;
+	}
+
+	resize(B, C, A.size()); //Resize picture B to size A
+	try {
+		float metric = ssim(A, C); //SSIM calculation
+		cout << "SSIM = " << metric;
+	}
+	catch (const char* message) {
+		cout << message;
+	}
+
 	waitKey(0);
 	return 0;
 }
