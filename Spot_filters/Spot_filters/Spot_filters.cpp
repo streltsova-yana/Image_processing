@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 	A = imread(argv[1]);
 	B = imread(argv[2]);
 	if ((!A.data) || (!B.data)) {
-		printf("No image data\n");
+		cout << "No image data" << endl;
 		return -1;
 	}
 
