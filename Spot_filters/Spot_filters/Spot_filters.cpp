@@ -29,6 +29,22 @@ int main(int argc, char** argv)
 		cout << message;
 	}
 
+
+	/////////////////////////////////////////////////////////////
+	char* filename = new char;
+	cin >> filename;
+	Mat image = imread(filename, IMREAD_COLOR);
+
+	Mat resimg = image.clone();
+	resimg = gray_scale(image);
+	imshow("Display Window1", resimg);
+
+	Mat resimg2 = image.clone();
+	cvtColor(image, resimg2, COLOR_RGB2GRAY);
+	imshow("Display Window2", resimg2);
+	delete filename;
+
+	/////////////////////////////////////////////////////////////
 	waitKey(0);
 	return 0;
 }
