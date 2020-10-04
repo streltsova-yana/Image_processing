@@ -35,16 +35,28 @@ int main(int argc, char** argv)
 	cin >> filename;
 	Mat image = imread(filename, IMREAD_COLOR);
 
-	Mat resimg = image.clone();
-	resimg = gray_scale(image);
-	imshow("Display Window1", resimg);
+	Mat resimg_gray1 = image.clone();
+	resimg_gray1 = gray_scale(image);
+	imshow("Display Window1", resimg_gray1);
 
-	Mat resimg2 = image.clone();
-	cvtColor(image, resimg2, COLOR_RGB2GRAY);
-	imshow("Display Window2", resimg2);
+	Mat resimg_gray2 = image.clone();
+	cvtColor(resimg_gray2, resimg_gray2, COLOR_RGB2GRAY);
+	imshow("Display Window2", resimg_gray2);
 	delete filename;
 
 	/////////////////////////////////////////////////////////////
+	Mat resimg_br1 = image.clone();
+	resimg_br1 = brightness_rgb(image);
+	imshow("Display Window1", resimg_br1);
+
+	Mat resimg_br2 = image.clone();
+	resimg_br2 = brightness_hsv(image);
+	imshow("Display Window2", resimg_br2);
+	
+	
+	/////////////////////////////////////////////////////////////
+	
+	
 	waitKey(0);
 	return 0;
 }
