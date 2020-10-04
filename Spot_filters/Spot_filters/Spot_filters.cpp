@@ -1,5 +1,7 @@
 ﻿#include <iostream>
 #include "Metric.h"
+#include "Converting.h"
+#include "Grayscale.h"
 
 using namespace cv;
 using namespace std;
