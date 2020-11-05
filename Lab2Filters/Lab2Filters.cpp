@@ -1,20 +1,45 @@
-﻿// Lab2Filters.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
-
-int main()
+﻿#include "Header.h"
+using namespace cv;
+Mat MedianFilter(const Mat& image)
 {
-    std::cout << "Hello World!\n";
+	Mat copy(image);
+	int mRadius = 1;
+	int size = 2 * mRadius + 1;
+	std::vector<int> vector(size * size);
+	for (int x = 0; x < image.cols; x++)
+		for (int y = 0; y < image.rows; y++)
+		{
+			for (int i = -mRadius; i <= mRadius; i++)
+				for (int j = -mRadius; j <= mRadius; j++)
+				{
+					int idx = (i + mRadius) * size + j + mRadius;
+					int z = clamp<int>(x + j, copy.cols - 1, 0);
+					int q = clamp<int>(y + i, copy.rows - 1, 0);
+					vector[idx] = copy.at<uchar>(q, z);
+				}
+			sort(vector.begin(), vector.end());
+			copy.at<uchar>(y, x) = vector[4];
+		}
+	return copy;
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+Mat Average(const cv::Mat& image)
+{
+	Mat copy(image);
+	int mRadius = 1;
+	int size = 2 * mRadius + 1;
+	for (int x = 0; x < image.cols; x++)
+		for (int y = 0; y < image.rows; y++)
+		{
+			int sum = 0;
+			for (int i = -mRadius; i <= mRadius; i++)
+				for (int j = -mRadius; j <= mRadius; j++)
+				{
+					int idx = (i + mRadius) * size + j + mRadius;
+					int z = clamp<int>(x + j, copy.cols - 1, 0);
+					int q = clamp<int>(y + i, copy.rows - 1, 0);
+					sum += copy.at<uchar>(q, z);
+				}
+			copy.at<uchar>(y, x) = sum / (size * size);
+		}
+	return copy;
+}
