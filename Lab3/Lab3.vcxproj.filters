@@ -21,7 +21,7 @@
     <ClCompile Include="Canny.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Whatershed.cpp">
+    <ClCompile Include="Watersheds.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="Canny.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Whatershed.h">
+    <ClInclude Include="Watersheds.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
