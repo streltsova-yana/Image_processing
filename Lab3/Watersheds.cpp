@@ -100,10 +100,6 @@ cv::Mat Watershed(const Mat& src, int thresh)
     len_variance = len_variance / (contours.size() - n);
     com_variance = com_variance / (contours.size() - n);
 
-    std::cout << "Total area dispersion : " << (sqrt(area_variance) / area_average) * 100 << endl;
-    std::cout << "Total length deviation level : " << ((sqrt(len_variance)) / len_average) * 100 << endl;
-    std::cout << "General level of shape deviation : " << ((sqrt(com_variance)) / com_average) * 100 << endl;
-
     Mat marks = Mat::zeros(gray_image.size(), CV_32SC1);
     for (int i = 0; i < contours.size(); i++)
         drawContours(marks, contours, static_cast<int>(i), Scalar::all(static_cast<int>(i) + 1), -1);
